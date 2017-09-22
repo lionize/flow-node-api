@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "DEBUG=\"flow-api:*\" node build/index.js"
+    "start": "DEBUG=\"flow-api:*\" node build/index.js",
+    "test": "jest"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
@@ -24,5 +25,10 @@
     "jest": "^21.1.0",
     "supertest": "^3.0.0",
     "supertest-as-promised": "^4.0.2"
+  },
+  "jest": {
+    "transform": {
+      ".*": "<rootDir>/node_modules/babel-jest"
+    }
   }
 }
