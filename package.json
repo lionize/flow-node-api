@@ -8,10 +8,13 @@
     "babel-plugin-transform-flow-strip-types": "^6.22.0",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.6.0",
+    "body-parser": "^1.18.1",
     "debug": "^2.6.9",
+    "express": "^4.15.4",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
     "gulp-flowtype": "^1.0.0",
-    "gulp-sourcemaps": "^2.6.1"
+    "gulp-sourcemaps": "^2.6.1",
+    "morgan": "^1.8.2"
   }
 }
