@@ -17,7 +17,24 @@ export default class ProduceRouter {
     res.status(200).json(inventory);
   }
 
+  getById(req: $Request, res: $Response): void {
+    const id = parseInt(req.params.id, 10);
+    const record = inventory.find(item => item.id === id);
+    if (record) {
+      res.status(200).json({
+        message: "Success!",
+        item: record
+      });
+    } else {
+      res.status(400).json({
+        status: res.status,
+        message: `No item found with id: ${id}`
+      });
+    }
+  }
+
   init(): void {
     this.router.get("/", this.getAll);
+    this.router.get("/:id", this.getById);
   }
 }
