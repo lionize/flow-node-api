@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
+    "babel-core": "^6.26.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
     "gulp-sourcemaps": "^2.6.1"
