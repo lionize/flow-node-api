@@ -7,6 +7,7 @@
     "babel-core": "^6.26.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.0",
+    "gulp-flowtype": "^1.0.0",
     "gulp-sourcemaps": "^2.6.1"
   }
 }
