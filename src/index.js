@@ -15,6 +15,7 @@ const logger = debug("flow-api:startup");
 const app: Api = new Api();
 const DEFAULT_PORT: number = 3000;
 const port: string | number = normalizePort(process.env.PORT);
+// $FlowFixMe
 const server: http.Server = http.createServer(app.express);
 
 server.listen(port);
