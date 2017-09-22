@@ -4,6 +4,8 @@ import express from "express";
 import morgan from "morgan";
 import bodyParser from "body-parser";
 
+import ProduceRouter from "./routers/ProduceRouter";
+
 export default class Api {
   express: express$Application;
 
@@ -20,8 +22,8 @@ export default class Api {
   }
 
   routes(): void {
-    this.express.use((req: $Request, res: $Response) => {
-      res.json({ message: "Hello Flow!" });
-    });
+    const produceRouter = new ProduceRouter();
+
+    this.express.use(produceRouter.path, produceRouter.router);
   }
 }
