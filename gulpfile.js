@@ -1,4 +1,5 @@
 const gulp = require("gulp");
+const flow = require("gulp-flowtype");
 const babel = require("gulp-babel");
 const sourcemaps = require("gulp-sourcemaps");
 
@@ -11,8 +12,12 @@ gulp.task("scripts", () => {
     .pipe(gulp.dest("build"));
 });
 
-gulp.task("watch", ["scripts"], () => {
-  gulp.watch("src/**/*.js", ["scripts"]);
+gulp.task("flow", () => {
+  return gulp.src("src/**/*.js").pipe(flow({ killFlow: false }));
+});
+
+gulp.task("watch", ["flow", "scripts"], () => {
+  gulp.watch("src/**/*.js", ["flow", "scripts"]);
 });
 
 gulp.task("default", ["watch"]);
