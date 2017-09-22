@@ -90,4 +90,57 @@ describe("Flow API", () => {
       ]);
     });
   });
+
+  describe("POST /api/v1/produce - create new item", () => {
+    let peach = {
+      name: "peach",
+      quantity: 10,
+      price: 6
+    };
+
+    it("should accept and add a valid new item", () => {
+      return request(app)
+        .post("/api/v1/produce")
+        .send(peach)
+        .then(res => {
+          expect(res.body.status).toBe(200);
+          expect(res.body.message).toBe("Success!");
+          return request(app).get("/api/v1/produce");
+        })
+        .then(res => {
+          let returnedPeach = res.body.find(item => item.name === "peach");
+          expect(res.status).toBe(200);
+          expect(returnedPeach.quantity).toBe(10);
+          expect(returnedPeach.price).toBe(6);
+        });
+
+      it("should reject post w/o name, price, or quantity", () => {
+        let badItems = [
+          {
+            name: peach.name,
+            quantity: peach.quantity
+          },
+          {
+            quantity: peach.quantity,
+            price: peach.price
+          },
+          {
+            name: peach.name,
+            price: peach.price
+          }
+        ];
+        return Promise.all(
+          badItems.map(badItem => {
+            return request(app)
+              .post("/api/v1/produce")
+              .send(badItem)
+              .then(res => {
+                expect(res.body.status).toBe(400);
+                expect(res.body.message.startsWith("Bad Request")).toBe(true);
+              });
+          })
+        );
+      });
+    });
+  });
 });
