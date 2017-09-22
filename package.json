@@ -2,5 +2,10 @@
   "name": "flow-node-api",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.0",
+    "gulp-sourcemaps": "^2.6.1"
+  }
 }
