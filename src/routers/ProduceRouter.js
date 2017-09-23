@@ -106,10 +106,38 @@ export default class ProduceRouter {
     }
   }
 
+  removeById(req: $Request, res: $Response): void {
+    const searchId: number | boolean = parseId(req.params);
+    let toDel: number = inventory.findIndex(item => item.id === searchId);
+    if (toDel !== -1) {
+      let deleted = inventory.splice(toDel, 1)[0];
+      res.json({
+        status: 200,
+        message: "Success!",
+        deleted
+      });
+
+      saveInventory(inventory)
+        .then(writePath => {
+          logger(`Item deleted. Inventory written to:\n\t${writePath}`);
+        })
+        .catch(err => {
+          logger("Error writing to inventory file.");
+          logger(err.stack);
+        });
+    } else {
+      res.status(400).json({
+        status: 400,
+        message: "No item found with given ID."
+      });
+    }
+  }
+
   init(): void {
     this.router.get("/", this.getAll);
     this.router.get("/:id", this.getById);
     this.router.post("/", this.postOne);
     this.router.put("/:id", this.updateOneById);
+    this.router.delete("/:id", this.removeById);
   }
 }

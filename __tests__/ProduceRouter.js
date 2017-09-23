@@ -166,4 +166,29 @@ describe("Flow API", () => {
         });
     });
   });
+
+  describe("DELETE /api/v1/produce/:id - delete an item", () => {
+    it("deletes when given a valid ID", () => {
+      return request(app)
+        .delete("/api/v1/produce/4")
+        .then(res => {
+          expect(res.status).toBe(200);
+          expect(res.body.message).toBe("Success!");
+          expect(res.body.deleted.id).toBe(4);
+        });
+    });
+
+    it("responds w/ error if given invalid ID", () => {
+      return Promise.all(
+        [-2, 100].map(id => {
+          return request(app)
+            .delete("/api/v1/produce/${id}")
+            .then(res => {
+              expect(res.status).toBe(400);
+              expect(res.body.message).toBe("No item found with given ID.");
+            });
+        })
+      );
+    });
+  });
 });
