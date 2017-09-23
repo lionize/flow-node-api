@@ -143,4 +143,27 @@ describe("Flow API", () => {
       });
     });
   });
+
+  describe("PUT /api/v1/produce/:id - update an item", () => {
+    it("allows updates to props other than id", () => {
+      return request(app)
+        .put("/api/v1/produce/1")
+        .send({ quantity: 20 })
+        .then(res => {
+          expect(res.status).toBe(200);
+          expect(res.body.message).toBe("Success!");
+          expect(res.body.item.quantity).toBe(20);
+        });
+    });
+
+    it("rejects updates to id prop", () => {
+      return request(app)
+        .put("/api/v1/produce/1")
+        .send({ id: 10 })
+        .then(res => {
+          expect(res.status).toBe(400);
+          expect(res.body.message.startsWith("Update failed")).toBe(true);
+        });
+    });
+  });
 });
